@@ -1,24 +1,20 @@
 
+from ctre import TalonSRX
 import wpilib
 from wpilib.drive import MecanumDrive
 
-
 class MyRobot(wpilib.TimedRobot):
-    # Channels on the roboRIO that the motor controllers are plugged in to
-    frontLeftChannel = 2
-    rearLeftChannel = 3
-    frontRightChannel = 1
-    rearRightChannel = 0
 
     # The channel on the driver station that the joystick is connected to
     joystickChannel = 0
 
     def robotInit(self):
         """Robot initialization function"""
-        self.frontLeftMotor = wpilib.Talon(self.frontLeftChannel)
-        self.rearLeftMotor = wpilib.Talon(self.rearLeftChannel)
-        self.frontRightMotor = wpilib.Talon(self.frontRightChannel)
-        self.rearRightMotor = wpilib.Talon(self.rearRightChannel)
+
+        self.frontLeftMotor = TalonSRX(4)
+        self.rearLeftMotor = TalonSRX(3)
+        self.frontRightMotor = TalonSRX(1)
+        self.rearRightMotor = TalonSRX(2)
 
         # invert the left side motors
         self.frontLeftMotor.setInverted(True)
