@@ -1,6 +1,6 @@
 
 
-from time import sleep
+from time import sleep, time
 import wpilib
 from wpilib.drive import MecanumDrive
 import ctre
@@ -19,6 +19,8 @@ class MyRobot(wpilib.TimedRobot):
         self.rearLeftMotor = ctre.WPI_TalonSRX(3)
         self.frontRightMotor = ctre.WPI_TalonSRX(1)
         self.rearRightMotor = ctre.WPI_TalonSRX(2)
+
+        self.timer = wpilib.Timer()
         
 
         # invert the left side motors
@@ -51,19 +53,51 @@ class MyRobot(wpilib.TimedRobot):
 
     
     
-def autonomousPeriodic(self): 
+    def autonomousInit(self):
+        self.timer.reset()
+        self.timer.start()
+    
+    
+    def autonomousPeriodic(self): 
+#Uses strafing to autonomously form a square
+            #wpilib.Encoder()
 
-            wpilib.Encoder()
-            self.frontLeftMotor.set(1)
-            self.frontRightMotor.set(1)
-            self.rearLeftMotor.set(1)
-            self.rearRightMotor.set(1)
-            sleep()
+                while self.timer.get() <= 3.0:
+                    self.frontLeftMotor.set(1)
+                    self.frontRightMotor.set(1)
+                    self.rearLeftMotor.set(1)
+                    self.rearRightMotor.set(1)
+                    
+                while 4.0 <= self.timer.get()<= 8.0:
+                    self.frontLeftMotor.set(-1)
+                    self.frontRightMotor.set(1)
+                    self.rearLeftMotor.set(1)
+                    self.rearRightMotor.set(-1)
+                    
+                while 9.0 <= self.timer.get() <= 12.0:
+                 self.frontLeftMotor.set(-1)
+                 self.frontRightMotor.set(-1)
+                 self.rearLeftMotor.set(-1)
+                 self.rearRightMotor.set(-1)
+                 
+                while 14.0 <= self.timer.get() <= 18.0: 
+                     self.frontLeftMotor.set(1)
+                     self.frontRightMotor.set(-1)
+                     self.rearLeftMotor.set(-1)
+                     self.rearRightMotor.set(1)
+                     
+
+
+            
+if __name__ == "__main__":
+    wpilib.run(MyRobot)
 
     
 
 
 
 
-if __name__ == "__main__":
-    wpilib.run(MyRobot)
+
+
+
+
