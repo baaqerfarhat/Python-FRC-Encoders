@@ -51,10 +51,6 @@ class MyRobot(wpilib.TimedRobot):
 
     
     
-def autonomousInit(self):
-        frontLeftMotor.GetSelectedSensorpos()
-    
-    
 def autonomousPeriodic(self): 
 
             wpilib.Encoder()
